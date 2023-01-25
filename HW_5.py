@@ -6,7 +6,7 @@ from matplotlib import pyplot as plt
 Z=2
 N = 1000
 a = float(0)
-b = float(5)
+b = float(5) #This can be reffered to as rmax in some cases
 h = (b-a)/N
 rho = np.arange(1,N+1)*h
 

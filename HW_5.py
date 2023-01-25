@@ -14,7 +14,7 @@ rho = np.arange(1,N+1)*h
 initial_guess =1/np.pi*Z**3*np.exp(-2*Z*rho) 
 
 def generate_wavefunction(rho,V,Z):
-    #Discrete Laplace operator
+    #Returns a wave function and epsilon energy
     diagonal_term = h**-2 - Z*rho**-1 + V
     A = np.diag(diagonal_term,0)+np.diag(-np.ones(N-1)/(2*h**2),1)+np.diag(-np.ones(N-1)/(2*h**2),-1)
     #Eigenvalues & eigenvectors:

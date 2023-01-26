@@ -52,9 +52,10 @@ def generate_energy(epsilon,epsilon_xc, V_H, V_xc, density, Z):
 
 def generate_correlation_terms(density,Z):
     r=generate_rs(density,Z)
-    #Correlation energies
-    epsilon_correlation=(r>=1)*gamma/(1+beta_1*np.sqrt(r)+beta_2*r)
-    epsilon_correlation=epsilon_correlation+(r<1)*(A*np.log(r)+B+C*r*np.log(r)+D*r)
+    #Correlation energies for the two domains r >= 1 & r<1
+    epsilon_correlation=(r<1)*(A*np.log(r)+B+C*r*np.log(r)+D*r)
+    epsilon_correlation=epsilon_correlation+ (r>=1)*gamma/(1+beta_1*np.sqrt(r)+beta_2*r)
+    
     
     #Correlation potential
     V_c=(r>=1)*epsilon_correlation*(1+7/6*beta_1*np.sqrt(r)+4/3*beta_2*r)/(1+beta_1*np.sqrt(r)+beta_2*r)
@@ -71,7 +72,7 @@ def generate_exchange_terms(Z,density):
 def generate_hartree(rho,N,density):
     _A = np.diag(-2*np.ones(N),0)+np.diag(np.ones(N-1),1) + np.diag(np.ones(N-1),-1)
     potential = -4*np.pi*h**2*rho*density
-    potential[-1] -= 1
+    potential[-1] -= 1.5
     V_H = (np.linalg.solve(_A,potential))*(rho**-1)
     return V_H
 

@@ -6,7 +6,7 @@ from matplotlib import pyplot as plt
 Z=2
 N = 1000
 a = float(0)
-b = float(5) #This can be reffered to as rmax in some cases
+b = float(6) #This can be reffered to as rmax in some cases
 h = (b-a)/N
 rho = np.arange(1,N+1)*h
 
@@ -27,7 +27,7 @@ def generate_wavefunction(rho,V,Z):
     temp = minimized_energy_vector
     temp = temp/(np.sqrt(np.trapz(temp**2,rho))*np.sign(temp[0]))
     
-    wavefunction = (np.sqrt(4*np.pi)**-1)*temp*rho**-1
+    wavefunction = 1/np.sqrt(4*np.pi)*temp*rho**-1
     
     #Normalize
     #wavefunction = wavefunction/(np.trapz(wavefunction,rho))
@@ -49,7 +49,8 @@ def generate_exchange_terms(Z,density):
 def generate_hartree(rho,N,density):
     A = np.diag(-2*np.ones(N),0)+np.diag(np.ones(N-1),1) + np.diag(np.ones(N-1),-1)
     potential = -4*np.pi*h**2*rho*density
-    potential[-1] -= 1
+    potential[-1] -= 1.5
+    
     V_H = (np.linalg.solve(A,potential))*rho**-1
     return V_H
 
@@ -79,5 +80,5 @@ def self_consistency_solver(iterations,threshhold):
 
 
 iterations = 50
-threshhold = 1e-5
+threshhold = 1e-5/27
 self_consistency_solver(iterations,threshhold)

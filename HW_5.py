@@ -6,7 +6,7 @@ from matplotlib import pyplot as plt
 Z=2
 N = 1000
 a = float(0)
-b = float(6) #This can be reffered to as rmax in some cases
+b = float(5) #This can be reffered to as rmax in some cases
 h = (b-a)/N
 rho = np.arange(1,N+1)*h
 
@@ -80,5 +80,5 @@ def self_consistency_solver(iterations,threshhold):
 
 
 iterations = 50
-threshhold = 1e-5/27
+threshhold = 1e-5
 self_consistency_solver(iterations,threshhold)
